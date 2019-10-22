@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -96,6 +97,16 @@ private:
 	int fail_count = 0;
 };
 
+bool	RefIsPalindrom(string s)
+{
+	int i = 0;
+
+	while (s[i] == s[s.size() - 1 - i] && i < s.size() / 2)
+		i++;
+	//if i == s.size() / 2 than two halfs of the sting are equal and the string is a palindrom
+	return i == s.size() / 2;
+}
+
 bool	IsPalindrom(string s)
 {
 	int i = 0;
@@ -106,16 +117,54 @@ bool	IsPalindrom(string s)
 	return i == s.size() / 2;
 }
 
+void CourseTests() {
+		Assert(IsPalindrom(""), "empty string is a palindrome");
+		Assert(IsPalindrom("a"), "one letter string is a palindrome");
+		Assert(IsPalindrom("abba"), "abba is a palindrome");
+		Assert(IsPalindrom("abXba"), "abXba is a palindrome");
+		Assert(IsPalindrom("a b X b a"), "`a b X b a` is a palindrome");
+		Assert(IsPalindrom("  ABBA  "), "`  ABBA  ` is a palindrome");
+
+		Assert(!IsPalindrom("XabbaY"), "XabbaY is not a palindrome");
+		Assert(!IsPalindrom("abXYba"), "abXYba is not a palindrome");
+		Assert(!IsPalindrom("Xabba"), "Xabba is not a palindrome");
+		Assert(!IsPalindrom("abbaX"), "abbaX is not a palindrome");
+		Assert(
+				!IsPalindrom("was it a car or a cat i saw"),
+				"`was it a car or a cat i saw` is not a palindrome because spaces do not match"
+		);
+		Assert(!IsPalindrom("ABBA   "), "`ABBA   ` is not a palindrome");
+		Assert(!IsPalindrom("  ABBA"), "`  ABBA` is not a palindrome");
+
+}
+
 void Tests() {
-	Assert(IsPalindrom(""), "Empty string is a palindrom");
-	Assert(IsPalindrom("h"), "One symbol string is a palindrom");
-	Assert(IsPalindrom("madam"), "Wrong output");
-	Assert(IsPalindrom("level"), "Wrong output");
-	Assert(IsPalindrom(" wasitacaroracatisaw "), "Skipping first or last element");
-	Assert(IsPalindrom("wasitacaroracatisaw"), "Wrong output");
-	AssertEqual(IsPalindrom(" wasitacaroracatisaw"), false, "Skipping delimiters");
-	AssertEqual(IsPalindrom("wasitacaroracatisaw "), false, "Skipping delimiters");
-	AssertEqual(IsPalindrom("levdel"), false, "Wrong output");
+	AssertEqual(IsPalindrom(""), true, "empty string");
+	AssertEqual(IsPalindrom(" "), true, "whitespace");
+	AssertEqual(IsPalindrom("A"), true, "A");
+	AssertEqual(IsPalindrom("&"), true, "&");
+	AssertEqual(IsPalindrom("1"), true, "1");
+	AssertEqual(IsPalindrom("121"), true, "121");
+	AssertEqual(IsPalindrom("@@"), true, "@@");
+	AssertEqual(IsPalindrom("!@# #@!"), true, "!@# #@!");
+	AssertEqual(IsPalindrom("madam"), true, "madam");
+	AssertEqual(IsPalindrom("baobab"), false, "baobab");
+	AssertEqual(IsPalindrom(" weew "), true, " weew ");
+	AssertEqual(IsPalindrom("f f ff f f"), true, "f f ff f f");
+	AssertEqual(IsPalindrom("f f f f f"), true, "f f f f f");
+	AssertEqual(IsPalindrom("A  L L A"), false, "A  L L A");
+	AssertEqual(IsPalindrom("mada m"), false, "mada m");
+	AssertEqual(IsPalindrom(" weew   "), false, " weew   ");
+	AssertEqual(IsPalindrom("   weew "), false, "   weew ");
+	AssertEqual(IsPalindrom("qwertyTrewq"), false, "qwertyTrewq");
+	AssertEqual(IsPalindrom("qwertytrewq"), true, "qwertytrewq");
+	AssertEqual(IsPalindrom("qwerttrewq"), true, "qwerttrewq");
+	AssertEqual(IsPalindrom("qwertytrewQ"), false, "qwertytrewQ");
+	AssertEqual(IsPalindrom("Q wer ewQ"), false, "Q wer ewQ");
+	AssertEqual(IsPalindrom("   qwert ytrewq   "), false, "qwert ytrewq");
+	AssertEqual(IsPalindrom("7777777778"), false);
+	AssertEqual(IsPalindrom("8777777777"), false);
+	AssertEqual(IsPalindrom("                                           "), true);
 }
 
 int main() {
