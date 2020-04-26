@@ -4,5 +4,6 @@ project(course)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(course week1/find_max_repetition_count/find_max_repetition_count.cpp)
+include_directories(include)
+add_executable(course  week4/build_expression/build_expression.cpp)
 
