@@ -28,8 +28,8 @@ protected:
 
 class Rect : public Figure {
 public:
-	Rect(const double& width, const double& height) : Figure("RECT") {
-		_perimeter = (width + height) * 2.;
+	Rect(const int width, const int height) : Figure("RECT") {
+		_perimeter = (width + height) * 2.0;
 		_area = width * height;
 	}
 
@@ -50,10 +50,10 @@ public:
 
 class Triangle : public Figure {
 public:
-	Triangle(const double& a, const double& b, const double& c) : Figure("TRIANLGE") {
+	Triangle(const int a, const int b, const int c) : Figure("TRIANLGE") {
 		_perimeter = a + b + c;
-		_area = sqrt((_perimeter / 2.) * (_perimeter / 2. - a) *
-				(_perimeter / 2. - b) * (_perimeter / 2. - c));
+		_area = sqrtl((_perimeter / 2.0) * (_perimeter / 2.0 - a) *
+				(_perimeter / 2.0 - b) * (_perimeter / 2.0 - c));
 	}
 
 	string Name() const override {
@@ -71,9 +71,9 @@ public:
 
 class Circle : public Figure {
 public:
-	Circle(const double& radius) : Figure("CIRCLE") {
-		_perimeter = 2. * M_PI * radius;
-		_area = M_PI * pow(radius, 2);
+	Circle(const int& radius) : Figure("CIRCLE") {
+		_perimeter = 2.0 * PI * radius;
+		_area = PI * pow(radius, 2.0);
 	}
 
 	string Name() const override {
@@ -87,6 +87,9 @@ public:
 	double Perimeter() const override  {
 		return _perimeter;
 	}
+
+private:
+	const double PI = 3.14;
 };
 
 
@@ -96,19 +99,19 @@ shared_ptr<Figure> CreateFigure(istringstream& is) {
 
 	is >> figure_type;
 	if (figure_type == "RECT") {
-		double width, height;
+		int width, height;
 
 		is >> width >> height;
 		return make_shared<Rect>(width, height);
 
 	} else if (figure_type == "CIRCLE") {
-		double radius;
+		int radius;
 
 		is >> radius;
 		return make_shared<Circle>(radius);
 
 	} else if (figure_type == "TRIANGLE") {
-		double a, b, c;
+		int a, b, c;
 
 		is >> a >> b >> c;
 		return make_shared<Triangle>(a, b, c);

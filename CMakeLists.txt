@@ -5,5 +5,5 @@ project(course)
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(include)
-add_executable(course  week4/build_expression/build_expression.cpp)
+add_executable(course   week5/code_refactor/code_refactor.cpp)
 
