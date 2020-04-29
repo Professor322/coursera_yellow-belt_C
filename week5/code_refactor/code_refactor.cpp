@@ -83,23 +83,12 @@ public:
 };
 
 
-void VisitPlaces(Teacher t, vector<string> places) {
-	for (auto p : places) {
+void VisitPlaces(const Human& t, const vector<string>& places) {
+	for (const auto& p : places) {
 		t.Walk(p);
 	}
 }
 
-void VisitPlaces(Student s, vector<string> places) {
-	for (auto p : places) {
-		s.Walk(p);
-	}
-}
-
-void VisitPlaces(Policeman pol, vector<string> places) {
-	for (auto p : places) {
-		pol.Walk(p);
-	}
-}
 
 
 int main() {
